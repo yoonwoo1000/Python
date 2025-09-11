@@ -12,6 +12,5 @@ z = x % y
 print(z)
 z = x // y
 print(z)
-z = x ** y
+z = x**y
 print(z)
-

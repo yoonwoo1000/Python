@@ -5,7 +5,7 @@ print(string[25])
 
 print(len(string))
 
-# 0 1 2 3 4 5 ... 23 24 25 : 
+# 0 1 2 3 4 5 ... 23 24 25 :
 
 print(string[-1])
 print(string[-26])
@@ -26,5 +26,3 @@ print(hour)
 print(minuate)
 totalMin = (hour * 60) + minuate
 print(totalMin)
-
-
