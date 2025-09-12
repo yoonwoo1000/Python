@@ -7,10 +7,10 @@ print(strData)
 strData = "Hi"
 print(strData)
 
-strData = '''1
+strData = """1
 2
 3
-4'''
+4"""
 print(strData)
 strData = """1
 2
@@ -19,9 +19,9 @@ strData = """1
 print(strData)
 strData = "hi's magic"
 print(strData)
-strData = 'hi\'s magic'
+strData = "hi's magic"
 print(strData)
-strData = 'hi\n magic'
+strData = "hi\n magic"
 print(strData)
 strData = "hi\rmagicqwe"
 print(strData)
@@ -32,7 +32,12 @@ print(strData)
 strData = "-" * 10
 print(strData)
 
-strData =  "age = " + str(30)
+strData = "age = " + str(30)
 print(strData)
 
+strData = "a"
 
+print(ord(strData))
+
+print(chr(48))
+print(chr(65 - 17))
