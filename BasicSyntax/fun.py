@@ -6,4 +6,5 @@ def sub(x, y):
     return x - y
 
 
-print("fun.py is runing")
+if __name__ == "__main__":
+    print("fun.py is running")
