@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>static practice</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h3>Webpage made by flask</h3>
+    <h3>8080port</h3>
+    <img src="/static/image/cat.jpg">
+    <img src="{{ url_for('static', filename = 'image/cat.jpg')}}">
+    <br>
+    <a href="/static/html/base.html">move to static document</a>
+</body>
+</html>
