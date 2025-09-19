@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>dictionary user information</title>
+</head>
+<body>
+    {% if data %}
+    <p> user number : {{data.idx}}</p>
+    <p> user name : 
+         {{"admin" if data.userLevel == 'admin' else ""}}
+        {{data.name}}
+    </p>
+    <p> user level : {{data.userLevel}}</p>
+    <p> joinDate : {{data.joinDate}}</p>
+    <p> {% if data.isRetire%} 
+            <p>retire date : {{data.retireDate}}</p>
+            <button>rejoin</button>
+        {%else%}
+            <button>block</button>
+        {%endif%}
+    </p>
+    <hr>
+    {% endif %}
+
+    {% if data %}
+        {%for key, value in data.items() %}
+            <li>{{key}} : {{value}}</li>
+        {%endfor%}
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user information</title>
+</head>
+<body>
+    <p>user number : {{idx}}</p>
+    <p>user name : {{userName}}</p>
+    <p>user level : {{"admin" if userLevel == "admin" else "user"}}</p>
+    <p>join date : {{joinDate}}</p>
+    {% if isRetire%}
+    <p>quit date: {{retireDate}}</p>
+    <button>rejoin</button>
+    {% else %}
+    <button>block</button>
+    {% endif%}
+
+</body>
+</html>
