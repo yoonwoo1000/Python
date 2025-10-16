@@ -35,7 +35,12 @@ def index():
 
 @app.route("/view")
 def view():
-    result = contents[0]
+    target = 1
+    for item in contents:
+        if item["idx"] == target:
+            print(f"idx is {target}")
+            result = item
+        print(result)
     return render_template("view.html", data=result)
 
 
