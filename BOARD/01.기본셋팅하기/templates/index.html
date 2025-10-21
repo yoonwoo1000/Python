@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>플라스크 게시판</title>
+    </head>
+    <body>
+        <img src="/static/image/큰고양이.jpg" width="200px" alt="고양이 사진">
+        <p>게시판 내용 들어갈 자리</p>
+        <p>{{title}}</p>
+        <p>{{content}}</p>
+        {% if content %}
+            <p style="color:red">{{content}}</p>
+        {% else %}
+            <p>게시글 목록이 표시되어야 합니다</p>
+        {% endif %}
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <th>글번호</th><th>글제목</th><th>작성자</th>
+                <th>작성일자</th><th>조회수</th><th>댓글개수</th>
+            </tr>
+            {% for item in boardList %}
+                <tr>
+                    <td align="right"> {{item['bIDX']}} </td>
+                    <td> {{item['bTitle']}} </td>
+                    <td align="center"> {{item['uName']}} </td>
+                    <td> {{item['wDate']}} </td>
+                    <td align="right"> {{item['hits']}} </td>
+                    <td align="right"> {{item['reply_count']}} </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
