@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>마이페이지</title>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <script src="/static/js/main.js"></script>
+    </head>
+    <body>
+        {% if error %}
+        <table border="1" width="300px" style="margin: auto;">
+            <tr>
+                <td align="center">
+                    <span style="color: red; font-size:24px;">
+                        {{error}}
+                    </span>
+                </td>
+            </tr>
+        </table>
+        {% endif %}
+        <table border="1" width="300px" style="margin: auto;">
+            <tr>
+                <td width="70px">회원번호</td>
+                <td>{{user['uIDX']}}</td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td>{{user['uName']}}</td>
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td>{{user['uID']}}</td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td>{{user['uEmail']}}</td>
+            </tr>
+            <tr>
+                <td>가입일자</td>
+                <td>{{user['joinDate']}}</td>
+            </tr>
+            <tr>
+                <td>권한</td>
+                <td>{{ '관리자' if user['level'] == 'A' else '일반회원' }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <a href="/mypage/modify"><button type="button">정보 수정하기</button></a>
+                    <a href="/mypage/passwd"><button type="button">비번 변경하기</button></a>
+                    <a href="/"><button type="button">메인으로</button></a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

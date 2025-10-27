@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>flask로부터 파일 받기</title>
+    </head>
+    <body>
+        <!-- flask 앱의 static 폴더의 파일은 바로 접근 가능 -->
+        <img src="/static/image/고양이.jpg" width="200px"><br>
+        <!-- upload 폴더는??? -->
+        <img src="/upload/고양이.jpg" width="200px"><br>
+        <!-- /download/파일명 으로 요청하고 -->
+        <!-- 해당 주소를 라우트하는 함수를 선언 -->
+        <img src="/upload/고양이.jpg" width="200px"><br>
+        <a href="/static/image/고양이.jpg" download="cat.jpg">고양이.jpg</a>
+
+    </body>
+</html>

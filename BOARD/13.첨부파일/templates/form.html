@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>첨부파일 보내기</title>
+    </head>
+    <body>
+        <!-- 파일을 post로 submit하기 위해서는  -->
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            문자열 :<input type="text" name="text"><br>
+            <!-- 파일1 : <input type="file" name="attach1"><br>
+            파일2 : <input type="file" name="attach2"><br> -->
+            파일들 : <input type="file" name="files" multiple>
+            <hr>
+            <input type="submit" value="전송하기">
+            <input type="reset" value="취소하기">
+        </form>
+    </body>
+</html>

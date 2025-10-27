@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>게시글 작성하기</title>
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+    <body>
+        {% if error %}
+        <table border="1" width="300px" style="margin: auto;">
+            <tr><td align="center"><span style="color: red; font-size:24px;">{{error}}</span></td></tr>
+        </table>
+        {% endif %}
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td>
+                    <span style="font-size:32px;">
+                        {{ '자유게시판' if bType == 'fb' else '공지게시판' }}
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <form action="/write" method="post">
+            <table border="1" width="700px" style="margin: auto;">
+                <tr>
+                    <td width="50px">게시판종류</td>
+                    <td>
+                        <select name="bType" id="typeSelect">
+                            <option value=""></option>
+                            <option value="nb" {{ 'selected' if bType == "nb" else "" }}>공지게시판</option>
+                            <option value="fb" {{ 'selected' if bType == "fb" else "" }}>자유게시판</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>작성자</td>
+                    <td>{{ session.get('uName') }}</td>
+                </tr>
+                <tr>
+                    <td>글제목</td>
+                    <td><input type="text" name="bTitle"></td>
+                </tr>
+                <tr>
+                    <td>글내용</td>
+                    <!-- <input type="text" name="bContent"> -->
+                    <td><textarea name="bContent" cols="80" rows="10"></textarea></td>
+                </tr>
+            </table>
+            <table border="1" width="700px" style="margin: auto;">
+                <tr>
+                    <td align="right">
+                        <input type="submit" value="글쓰기">
+                        <input type="reset" value="취소">
+                        <a href="/?type={{bType}}">
+                            <input type="button" value="목록으로">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

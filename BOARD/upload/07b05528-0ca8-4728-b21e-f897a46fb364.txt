@@ -1,0 +1,19 @@
+프로젝트 백업 사항
+
+1. DB dump
+  mysqldump -u 계정 -p 데이터베이스이름 > 파일명
+ex : mysqldump -u ateam -p 2nd_project > 2nd_project.sql
+DB이름과 계정, 비번 내용을 작성한 txt파일도 백업
+
+2. 통합구현 폴더에 프로젝트 파일 백업
+  프로젝트 산출물 정리해서 모두 백업해주세요
+
+3. 아나콘다 가상환경 백업
+  conda env export > 파일명.yml
+ex : conda env export > ateam_2nd_project.yml
+
+4. 개발문서, 회의록 등 프로젝트 산출물은 각각 폴더에 백업
+
+5. 다른 system에서도 프로젝트를 복원 배포할 수 있도록
+   실행환경과 프로젝트 파일, DB데이터를 백업합니다
+   배치작업 등 모든 프로젝트 내용 포함

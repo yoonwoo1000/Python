@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>비번 수정</title>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <script src="/static/js/pwc.js"></script>
+    </head>
+    <body>
+        {% if error %}
+        <table border="1" width="300px" style="margin: auto;">
+            <tr>
+                <td align="center">
+                    <span style="color: red; font-size:24px;">
+                        {{error}}
+                    </span>
+                </td>
+            </tr>
+        </table>
+        {% endif %}
+        <form action="/mypage/passwd" method="post" name="pwform">
+            <table border="1" width="300px" style="margin: auto;">
+                <tr>
+                    <td>현재 비번</td>
+                    <td><input type="password" name="uPW"></td>
+                </tr>
+                <tr>
+                    <td>새로운 비번</td>
+                    <td><input type="password" name="newPW"></td>
+                </tr>
+                <tr>
+                    <td>비번 확인</td>
+                    <td><input type="password" id="newPWC"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="수정하기">
+                        <input type="reset" value="취소하기">
+                        <a href="/"><button type="button">메인으로</button></a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>플라스크 게시판</title>
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+    <body>
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td>
+                    <span style="font-size:32px;">
+                        {{ '자유게시판' if content['bType'] == 'fb' else '공지게시판'}}
+                    </span>
+                </td>
+            </tr>
+        </table>
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td>
+                    <a href="/?type=nb">공지게시판</a> <a href="/?type=fb">자유게시판</a>
+                    //
+                    <a href="/?type=ib">이미지게시판</a> <a href="/?type=jb">자바게시판</a>
+                    <a href="/?type=pb">파이썬게시판</a> <a href="/?type=sb">JS게시판</a>
+                    <a href="/?type=db">DB게시판</a>
+                </td>
+            </tr>
+        </table>
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td align="right">
+                    <select name="type" id="typeSelect">
+                        <option value=""></option>
+                        <option value="nb" {{ 'selected' if content['bType']== "nb" else "" }}>공지게시판</option>
+                        <option value="fb" {{ 'selected' if content['bType']== "fb" else "" }}>자유게시판</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <!-- 게시글 정보 -->
+        <table border="1" width="700px" style="margin: auto;">
+            <tr><td width="50px">글번호</td><td>{{content['bIDX']}}</td></tr>
+            <tr><td>글제목</td><td>{{content['bTitle']}}</td></tr>
+            <tr><td>글내용</td><td>{{content['bContent']}}</td></tr>
+            <tr><td>작성자</td><td>{{content['uName']}}</td></tr>
+            <tr><td>작성일</td><td>{{content['wDate']}}</td></tr>
+            <tr><td>조회수</td><td>{{content['hits']}}</td></tr>
+        </table>
+        <!-- 댓글 목록 테이블 -->
+        {% if replys %}
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <th>작성자</th><th>댓글내용</th><th></th>
+            </tr>
+            <!-- 반복문 시작 -->
+            {% for reply in replys %}
+            <tr>
+                <td align="center" width="200px"> {{reply['uName']}} </td>
+                <td> {{reply['rText']}} </td>
+                <td align="center" width="150px">
+                    <!-- 댓글 작성자 / 관리자에게 표시 -->
+                    <input type="button" value="댓글수정">
+                    <input type="button" value="댓글삭제">
+                </td>
+            </tr>
+            <!-- 반복문 종료 -->
+            {% endfor %}
+        </table>
+        {% endif %}
+        <!-- 로그인여부, 권한여부에 따라 버튼 배치하기 -->
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td align="right">
+                    <!-- 글쓰기 버튼은 로그인 유저에게 -->
+                    {% if session.get('uIDX') %}
+                    <a href="/write?bType={{content['bType']}}"><input type="button" value="글쓰기"></a>
+                    {% endif %}
+                    <!-- 글수정, 삭제 버튼은 작성자거나 관리자에게 -->
+                    {% if session.get('level') == 'A' or session.get('uIDX') == content['uIDX'] %}
+                    <a href="/modify?bIDX={{content['bIDX']}}"><input type="button" value="글수정"></a>
+                    <a href="/delete?bIDX={{content['bIDX']}}"><input type="button" value="글삭제"></a>
+                    {% endif %}
+                    <!-- 목록으로 버튼은 모든 유저에게 -->
+                    <a href="/?type={{content['bType']}}"><input type="button" value="목록으로"></a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

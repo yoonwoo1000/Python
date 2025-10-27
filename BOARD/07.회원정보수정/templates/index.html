@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>플라스크 게시판</title>
+        <link rel="stylesheet" href="/static/css/style.css">
+        <script src="/static/js/main.js"></script>
+    </head>
+    <body>
+        {% if type %}
+            <table width="700px" style="margin: auto;">
+                <tr>
+                    <td>
+                        <span style="font-size:32px;">
+                            {{ '자유게시판' if type == 'fb' else '공지게시판'}}
+                        </span>
+                    </td>
+                    <td align="right">
+                        {% if session.get('uIDX') %}
+                            {{session.get('uName')}}님 반갑습니다
+                            <a href="/mypage"><input type="button" value="마이페이지"></a>
+                            <a href="/logout"><input type="button" value="로그아웃"></a>
+                        {% else %}
+                            <a href="/login"><input type="button" value="로그인"></a>
+                            <a href="/join"><input type="button" value="회원가입"></a>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        {% endif %}
+        {% if boardList %}
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td>
+                    <a href="/?type=nb"><button type="button">공지게시판</button></a>
+                    <a href="/?type=fb"><button type="button">자유게시판</button></a>
+                    //
+                    <a href="/?type=ib"><button type="button">이미지게시판</button></a>
+                    <a href="/?type=jb"><button type="button">자바게시판</button></a>
+                    <a href="/?type=pb"><button type="button">파이썬게시판</button></a>
+                    <a href="/?type=sb"><button type="button">JS게시판</button></a>
+                    <a href="/?type=db"><button type="button">DB게시판</button></a>
+                </td>
+            </tr>
+        </table>
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td align="right">
+                    <select name="type" id="typeSelect">
+                        <option value=""></option>
+                        <option value="nb" {{ 'selected' if type== "nb" else "" }}>공지게시판</option>
+                        <option value="fb" {{ 'selected' if type== "fb" else "" }}>자유게시판</option>
+                    </select>
+                    {% if session.get('uIDX') %}
+                    <a href="/write"><button type="button">글쓰기</button></a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <th>글번호</th><th>글제목</th><th>작성자</th>
+                <th>작성일자</th><th>조회수</th><th>댓글개수</th>
+            </tr>
+                {% for item in boardList %}
+                    <tr>
+                        <td align="right"> {{item['bIDX']}} </td>
+                        <td> <a href="/view?bIDX={{item['bIDX']}}">{{item['bTitle']}}</a> </td>
+                        <td align="center"> {{item['uName']}} </td>
+                        <td align="center"> {{item['wDateS']}} </td>
+                        <td align="right"> {{item['hits']}} </td>
+                        <td align="right"> {{item['reply_count']}} </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <table border="1" width="700px" style="margin: auto;">
+                <tr>
+                    <td align="center">
+                        {% if curPage > 1 %}
+                            <a href="/?page=1&type={{type}}">《</a> <a href="/?page={{curPage-1}}&type={{type}}">〈</a>
+                        {% else %}
+                            《 〈
+                        {% endif %}
+                        {% for i in range(1,MPNUM+1) %}
+                            {% if i == curPage %}
+                                <a href="/?page={{i}}&type={{type}}"><b>{{i}}</b></a>
+                            {% else %}
+                                <a href="/?page={{i}}&type={{type}}">{{i}}</a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if curPage < MPNUM %}
+                            <a href="/?page={{curPage+1}}&type={{type}}">〉</a> <a href="/?page={{MPNUM}}&type={{type}}">》</a>
+                        {% else %}
+                        〉 》
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        {% endif %}
+    </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>게시글 수정페이지</title>
+        <link rel="stylesheet" href="/static/css/style.css">
+    </head>
+    <body>
+        {% if error %}
+        <table border="1" width="300px" style="margin: auto;"><tr><td align="center"><span style="color: red; font-size:24px;">{{error}}</span></td></tr></table>
+        {% endif %}
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td><span style="font-size:32px;">{{ '자유게시판' if content['bType'] == 'fb' else '공지게시판'}}</span></td>
+            </tr>
+        </table>
+        <table border="1" width="700px" style="margin: auto;">
+            <tr>
+                <td align="right">
+                    <select name="type" id="typeSelect">
+                        <option value=""></option>
+                        <option value="nb" {{ 'selected' if content['bType']== "nb" else "" }}>공지게시판</option>
+                        <option value="fb" {{ 'selected' if content['bType']== "fb" else "" }}>자유게시판</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <!-- 게시글 정보 -->
+        <form action="/modify" method="post">
+            <table border="1" width="700px" style="margin: auto;">
+                <tr>
+                    <td width="100px">글번호</td>
+                    <td>
+                        <input type="text" name="bIDX" value="{{content['bIDX']}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>작성자</td>
+                    <td>{{content['uName']}}</td>
+                </tr>
+                <tr>
+                    <td>작성일</td>
+                    <td>{{content['wDate']}}</td>
+                </tr>
+                {% if content.get('mDate') %}
+                <tr><td>수정일</td><td>{{content['mDate']}}</td></tr>
+                {% endif %}
+                <tr>
+                    <td>게시판 종류</td>
+                    <td>
+                        <select name="bType" id="typeSelect">
+                            <option value=""></option>
+                            <option value="nb" {{ 'selected' if content['bType']== "nb" else "" }}>공지게시판</option>
+                            <option value="fb" {{ 'selected' if content['bType']== "fb" else "" }}>자유게시판</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>글제목</td>
+                    <td><input type="text" name="bTitle" value="{{content['bTitle']}}"></td>
+                </tr>
+                <tr>
+                    <td>글내용</td>
+                    <td><textarea name="bContent" cols="80" rows="10">{{content['bContent']}}</textarea></td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="2">
+                        <input type="submit" value="수정하기">
+                        <input type="reset" value="취소하기">
+                        <a href="/?type={{content['bType']}}"><input type="button" value="목록으로"></a>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
