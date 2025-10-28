@@ -1,0 +1,6 @@
+https://pandas.pydata.org/
+pandas
+판다스는 파이썬 프로그래밍 언어를 기반으로 구축된 빠르고 강력하며 유연하고 사용하기 쉬운 오픈 소스 데이터 분석 및 조작 도구입니다 
+
+pip install pandas
+conda install pandas
