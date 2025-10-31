@@ -1,33 +1,20 @@
-from bs4 import BeautifulSoup
 import requests
 import pandas as pd
-
 # 삼성전자 일별 시세 조회 페이지
-url = "https://finance.naver.com/item/sise_day.naver?code=005930"
-agent_head = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36"
-}
-# 요청
+url = 'https://finance.naver.com/item/sise_day.naver?code=005930'
+agent_head = { "User-Agent" : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36' }
 response = requests.get(url, headers=agent_head)
-# HTMl
-
 html = response.text
-
 print(html)
+# 문서에 테이블이 두개 -> 주가테이블/페이징테이블
+# 첫번째 테이블만 df에 넣기
 df = pd.read_html(html)[0]
+df.dropna(subset='날짜', how='any', axis=0, inplace=True)
 print(df.info())
-print(df.head())
-df.dropna(subset="날짜", how="any", axis=0, inplace=True)
-df.to_csv("05_삼성전주주가.csv", encoding="euc-kr")
+print(df)
+df.to_csv('05_삼성전자주가.csv', encoding='euc-kr')
 
-"""bs4를 이용한 파싱
-soup = BeautifulSoup(html, "lxml")
-selector = 'CSS 선택자'
-result = soup.select_one(selector)
-if result :
-    print(result.text)"""
-
-"""
+'''
 <table cellspacing="0" class="type2">
     <tbody>
         # 제목 줄
@@ -70,4 +57,4 @@ if result :
     # 페이징 내비게이션 테이블
     <table>
     ...
-"""
+'''
