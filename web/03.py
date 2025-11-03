@@ -26,6 +26,10 @@ for href in tqdm(hrefList) :
     soup = BeautifulSoup(response.text, "lxml")
     selector = 'h2.media_end_head_headline'
     title = soup.select_one(selector)
+    if not title :
+        title = ''
+    else :
+        title = title.text
     # 본문,기자이름,작성일 등등 포함 
     # 기자이름 : em.media_journalistcard_summary_name_text
     # 기자이름 : em.media_end_head_journalist_name
@@ -34,20 +38,34 @@ for href in tqdm(hrefList) :
     # 본문 : article._article_content
     selector = 'span.byline_s'
     journalist_name = soup.select_one(selector)
+    # 예외처리 예시
+    # CSS 선택자로 객체 탐색 결과가 없으면
+    # .text 속성 접근에서 오류 발생
+    if not journalist_name :
+        journalist_name = ''
+    else :
+        journalist_name = journalist_name.text
     selector = 'span.media_end_head_info_datestamp_time._ARTICLE_DATE_TIME'
     datestamp = soup.select_one(selector)
+    if datestamp :
+        datestamp = datestamp.text
+    else :
+        datestamp = ''
     selector = 'article._article_content'
     article = soup.select_one(selector)
-    article = article.text.replace('\n\n', '\n')
+    if article :
+        article = article.text.replace('\n\n', '\n')
+    else :
+        article = ''
     news = {
         'href' : href,
-        'title' : title.text,
-        'journalist_name' : journalist_name.text,
-        'datestamp' : datestamp.text,
+        'title' : title,
+        'journalist_name' : journalist_name,
+        'datestamp' : datestamp,
         'article' : article
     }
     news_list.append(news)
-print(news_list)
+#print(news_list)
 import pandas as pd
 df = pd.DataFrame(news_list)
 df.to_csv('news.csv',encoding='utf-8')
